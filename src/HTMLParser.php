@@ -1,4 +1,5 @@
 <?php
+namespace App;
 class HTMLParser {
   public $dom;
 
@@ -12,10 +13,11 @@ class HTMLParser {
     if ($output === false) {
       echo 'cURL Error: ' . curl_error($ch);
     }
+    $output = \mb_convert_encoding($output, 'HTML-ENTITIES', 'UTF-8');
     curl_close($ch);
 
     // Set instance variable dom
-    $this->dom = new DOMDocument();
+    $this->dom = new \DOMDocument();
     @$this->dom->loadHTML($output);
   }
 
